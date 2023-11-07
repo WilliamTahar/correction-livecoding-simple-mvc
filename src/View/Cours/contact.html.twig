@@ -1,0 +1,110 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Contact - Mon super site {% endblock %}
+
+{% block stylesheet %}
+    <style>
+
+        h1 {
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            background-color: gray;
+        }
+
+        .errors {
+            width: 60%;
+            margin: auto;
+        }
+
+        li {
+            color: darkred;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: auto;
+        }
+
+        form div {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        form div label {
+            width: 30%;
+        }
+
+        form div input {
+            width: 70%;
+        }
+
+        form div textarea {
+            width: 70%;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Contactez-nous !</h1>
+
+{#    <div class="errors">#}
+{#        <ul>#}
+{#        {% for error in errors %}#}
+{#            <li>{{ error }}</li>#}
+{#        {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+
+    {% if success is not null %}
+        {% if success %}
+            <div style="color: green; text-align: center">Votre demande de contact a bien été envoyée !</div>
+        {% else %}
+            <div style="color: red; text-align: center">Un problème est survenu ... recommencez ... plus tard </div>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="/contact">
+        <div>
+            {% if errors.firstname %}
+                <span class="error">{{ errors.firstname }}</span>
+            {% endif %}
+            <label for="firstname">Prénom</label>
+            <input id="firstname" name="firstname" type="text">
+        </div>
+        <div>
+            {% if errors.lastname %}
+                <span class="error">{{ errors.lastname }}</span>
+            {% endif %}
+            <label for="lastname">Nom</label>
+            <input id="lastname" name="lastname" type="text">
+        </div>
+        <div>
+            {% if errors.email %}
+                <span class="error">{{ errors.email }}</span>
+            {% endif %}
+            <label for="email">Courriel</label>
+            <input id="email" name="email" type="email">
+        </div>
+        <div>
+            {% if errors.subject %}
+                <span class="error">{{ errors.subject }}</span>
+            {% endif %}
+            <label for="subject">Objet</label>
+            <input id="subject" name="subject" type="text">
+        </div>
+        <div>
+            {% if errors.content %}
+                <span class="error">{{ errors.content }}</span>
+            {% endif %}
+            <label for="content">Message</label>
+            <textarea id="content" name="content"></textarea>
+        </div>
+        <button type="submit">Envoyer</button>
+    </form>
+{% endblock %}
